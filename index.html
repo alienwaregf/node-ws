@@ -1,722 +1,552 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Network - Protect Earth</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Love Pets · 守护每一份小小心跳</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 字体：系统优先，兼容中文 -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --bg-gradient: radial-gradient(circle at top left, #fce7f3 0, #dbeafe 35%, #e0f2fe 60%, #fef9c3 100%);
+            --card-bg: rgba(255, 255, 255, 0.82);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --accent: #f97316;
+            --accent-soft: #fed7aa;
+            --text-main: #111827;
+            --text-soft: #4b5563;
         }
 
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #1b5e20;
-            --text: #333333;
-            --white: #ffffff;
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--light);
-            color: var(--text);
-            line-height: 1.6;
+            margin: 0;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro SC", "PingFang SC",
+            "Microsoft YaHei", system-ui, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 24px 12px;
         }
 
-        header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        .shell {
+            width: 100%;
+            max-width: 1080px;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* 顶部 hero */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            padding: 32px 28px 26px;
+            margin-bottom: 22px;
+            background: linear-gradient(135deg, rgba(15,23,42,0.94), rgba(30,64,175,0.96));
+            color: #f9fafb;
+            box-shadow: 0 24px 80px rgba(15,23,42,0.55);
         }
 
-        .nav-container {
+        .hero-inner {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+            gap: 20px;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 3vw + 1rem, 2.6rem);
+            letter-spacing: 0.04em;
+            margin: 0 0 10px;
+        }
+
+        .hero-sub {
+            font-size: 0.98rem;
+            color: #e5e7eb;
+            line-height: 1.8;
+            max-width: 32em;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .badge {
+            font-size: 0.78rem;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid rgba(248,250,252,0.5);
+            background: rgba(15,23,42,0.55);
+            backdrop-filter: blur(18px);
+        }
+
+        .hero-cta-row {
+            margin-top: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .hero-btn {
+            border: none;
+            cursor: default;
+            padding: 9px 18px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #fb923c, #fbbf24);
+            color: #111827;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 12px 30px rgba(248, 250, 252, 0.2);
+        }
+
+        .hero-note {
+            font-size: 0.8rem;
+            color: #cbd5f5;
+        }
+
+        /* 右侧猫狗插画块（用 CSS 画简单轮廓+爪印） */
+        .hero-illustration {
+            position: relative;
+            height: 190px;
+            border-radius: 20px;
+            background: radial-gradient(circle at 20% 0, #fef3c7 0, #fed7aa 28%, #fee2e2 60%, #e0f2fe 100%);
+            box-shadow: 0 18px 40px rgba(15,23,42,0.55);
+            overflow: hidden;
+        }
+
+        .glass-tag {
+            position: absolute;
+            inset: 14px 14px auto auto;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.8);
+            border: 1px solid rgba(148,163,184,0.4);
+            font-size: 0.78rem;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .glass-tag-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+        }
+
+        /* 简笔猫狗轮廓 */
+        .pet-doodle {
+            position: absolute;
+            inset: auto 12px 12px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            height: 120px;
+        }
+
+        .cat-outline,
+        .dog-outline {
+            position: relative;
+            width: 90px;
+            height: 100%;
+        }
+
+        .cat-head,
+        .dog-head {
+            position: absolute;
+            bottom: 34px;
+            left: 16px;
+            width: 52px;
+            height: 48px;
+            border-radius: 24px 24px 22px 22px;
+            border: 2px solid rgba(15,23,42,0.9);
+            background: rgba(255,255,255,0.9);
+        }
+
+        .cat-ear {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid rgba(15,23,42,0.9);
+            border-bottom: none;
+            transform: rotate(12deg);
+            top: -10px;
+            left: 2px;
+            border-radius: 4px 10px 0 0;
+        }
+
+        .cat-ear.right {
+            left: auto;
+            right: 2px;
+            transform: rotate(-12deg);
+        }
+
+        .dog-ear {
+            position: absolute;
+            width: 11px;
+            height: 22px;
+            background: rgba(248,250,252,0.95);
+            border: 2px solid rgba(15,23,42,0.9);
+            border-top: none;
+            border-radius: 10px 10px 12px 12px;
+            top: -2px;
+            left: -8px;
+        }
+
+        .dog-ear.right {
+            left: auto;
+            right: -8px;
+        }
+
+        .pet-face {
+            position: absolute;
+            inset: 12px 10px 10px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
+        .eye {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #111827;
         }
 
-        .logo i {
-            font-size: 2rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
-        }
-
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-
-        nav ul li a::after {
-            content: '';
+        .mouth {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80');
-            background-size: cover;
-            background-position: center;
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
             left: 50%;
+            bottom: 10px;
+            width: 14px;
+            height: 8px;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            border-radius: 2px;
+            border-bottom: 2px solid #111827;
+            border-radius: 0 0 16px 16px;
         }
 
-        .section-title p {
-            color: var(--text);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-img {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-img img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.05);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--text);
-        }
-
-        .initiatives {
-            background-color: var(--white);
-        }
-
-        .initiatives-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .initiative-card {
-            background-color: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .initiative-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .initiative-img {
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .initiative-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .initiative-card:hover .initiative-img img {
-            transform: scale(1.1);
-        }
-
-        .initiative-content {
-            padding: 1.5rem;
-        }
-
-        .initiative-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .initiative-content p {
-            margin-bottom: 1.5rem;
-        }
-
-        .cta {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--accent);
-            color: var(--white);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
+        .body {
             position: absolute;
             bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 2px;
-            background-color: var(--accent);
+            left: 6px;
+            right: 6px;
+            height: 32px;
+            border-radius: 20px;
+            border: 2px solid rgba(15,23,42,0.9);
+            background: rgba(248,250,252,0.9);
         }
 
-        .footer-column p {
-            margin-bottom: 1rem;
+        .tail {
+            position: absolute;
+            bottom: 18px;
+            right: -8px;
+            width: 22px;
+            height: 12px;
+            border-radius: 16px;
+            border: 2px solid rgba(15,23,42,0.9);
+            border-left: none;
         }
 
-        .footer-links {
-            list-style: none;
+        /* 爪印图案 */
+        .paw {
+            position: absolute;
+            width: 20px;
+            height: 20px;
         }
 
-        .footer-links li {
-            margin-bottom: 0.8rem;
+        .paw-main {
+            width: 14px;
+            height: 12px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.86);
+            position: absolute;
+            bottom: 0;
+            left: 3px;
         }
 
-        .footer-links li a {
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
+        .paw-toe {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: rgba(15,23,42,0.86);
+            top: 0;
         }
 
-        .footer-links li a:hover {
-            color: var(--accent);
-            padding-left: 5px;
+        .paw-toe:nth-child(2) { left: 0; }
+        .paw-toe:nth-child(3) { left: 7px; }
+        .paw-toe:nth-child(4) { left: 14px; }
+
+        .paw.p1 { top: 56px; left: 20px; transform: rotate(-12deg); }
+        .paw.p2 { top: 26px; right: 26px; transform: rotate(18deg); opacity: 0.9; }
+        .paw.p3 { bottom: 18px; right: 38px; transform: rotate(6deg); opacity: 0.7; }
+
+        /* 内容区 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 18px;
         }
 
-        .social-links {
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 18px 40px rgba(15,23,42,0.08);
+            padding: 18px 18px 16px;
+            backdrop-filter: blur(18px);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            margin: 0 0 10px;
             display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
+            gap: 8px;
         }
 
-        .social-links a:hover {
-            background-color: var(--accent);
-            transform: translateY(-5px);
+        .card-title span {
+            font-size: 1.1rem;
         }
 
-        .copyright {
+        .tag-pill {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+        .card p {
+            margin: 0 0 8px;
+            font-size: 0.9rem;
+            color: var(--text-soft);
+        }
+
+        .card ul {
+            margin: 4px 0 0;
+            padding-left: 18px;
+            font-size: 0.86rem;
+            color: var(--text-soft);
+        }
+
+        .slogan-card ul li {
+            margin-bottom: 4px;
+        }
+
+        .footer-note {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.78rem;
+            color: #6b7280;
+            margin-top: 4px;
         }
 
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 992px) {
-            .about-content {
-                grid-template-columns: 1fr;
+        @media (max-width: 900px) {
+            body {
+                padding: 16px 10px;
             }
-            
-            .initiatives-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
             }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
+            .hero-illustration {
+                order: -1;
+                height: 170px;
             }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+        @media (max-width: 640px) {
+            .hero {
+                padding: 22px 18px 18px;
             }
-            
-            .hero p {
-                font-size: 1.1rem;
+            .hero-sub {
+                font-size: 0.9rem;
             }
-            
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            .grid {
+                grid-template-columns: minmax(0, 1fr);
             }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-            
-            .initiatives-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animation for stats counter */
-        .counter {
-            transition: all 0.5s ease;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-seedling"></i>
-                <span>Green Network</span>
-            </div>
-            <nav>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#initiatives">Initiatives</a></li>
-                    <li><a href="#get-involved">Get Involved</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<div class="shell">
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Protect Our Planet, Preserve Our Future</h1>
-            <p>Join the global movement to create a sustainable world through conservation, education, and community action.</p>
-            <a href="#get-involved" class="btn">Join Our Network</a>
-        </div>
-    </section>
+    <!-- 顶部 Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div>
+                <h1 class="hero-title">爱宠一生，不止一时</h1>
+                <p class="hero-sub">
+                    对猫猫狗狗来说，世界很大，但它们的整个世界只有你。
+                    用温柔的方式养宠、科学的方式陪伴，让每一份小小心跳，都被认真对待。
+                </p>
+                <div class="hero-badges">
+                    <span class="badge">不遗弃 · 不虐待</span>
+                    <span class="badge">领养代替购买</span>
+                    <span class="badge">文明养宠 · 和谐社区</span>
+                </div>
+                <div class="hero-cta-row">
+                    <button class="hero-btn">今天，和它说一声「谢谢你陪我」</button>
+                    <span class="hero-note">从倒一碗干净的水开始，每个人都可以成为守护者。</span>
+                </div>
+            </div>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Green Network</h2>
-                <p>We are a global community dedicated to environmental protection and sustainable development.</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1507591064344-4c6ce005b128?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Team planting trees">
+            <!-- 右侧插画 -->
+            <div class="hero-illustration" aria-hidden="true">
+                <div class="glass-tag">
+                    <span class="glass-tag-dot"></span>
+                    <span>Pet-friendly Home · ON</span>
                 </div>
-                <div class="about-text">
-                    <h3>Our Mission</h3>
-                    <p>Green Network is committed to creating a sustainable future by protecting natural ecosystems, promoting renewable energy, and empowering communities to take environmental action.</p>
-                    <p>Founded in 2010, we've grown from a small grassroots organization to an international network with over 50,000 members across 120 countries.</p>
-                    <p>Our approach combines scientific research, community engagement, and policy advocacy to address the most pressing environmental challenges of our time.</p>
-                    <a href="#" class="btn">Learn More</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-tree"></i>
-                    <h3 class="counter" data-target="2500000">0</h3>
-                    <p>Trees Planted</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-users"></i>
-                    <h3 class="counter" data-target="50000">0</h3>
-                    <p>Active Members</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3 class="counter" data-target="120">0</h3>
-                    <p>Countries Reached</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-recycle"></i>
-                    <h3 class="counter" data-target="1500">0</h3>
-                    <p>Cleanup Projects</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Initiatives Section -->
-    <section class="initiatives" id="initiatives">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Initiatives</h2>
-                <p>Discover the key programs and projects we're implementing to protect our planet.</p>
-            </div>
-            <div class="initiatives-grid">
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://dialogue.earth/content/uploads/2021/04/lessons-from-the-rush-to-reforest-china-dialogue-2400x1599.jpg" alt="Reforestation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Global Reforestation</h3>
-                        <p>Planting millions of trees worldwide to restore ecosystems, combat climate change, and protect biodiversity.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
+                <div class="paw p1">
+                    <div class="paw-main"></div>
+                    <div class="paw-toe"></div>
+                    <div class="paw-toe"></div>
+                    <div class="paw-toe"></div>
                 </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1621451537084-482c73073a0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Ocean Conservation">
-                    </div>
-                    <div class="initiative-content">
-                        <h3>Ocean Conservation</h3>
-                        <p>Protecting marine ecosystems, reducing plastic pollution, and promoting sustainable fishing practices.</p>
-                        <a href="#" class="btn">Learn More</a>
-                    </div>
+                <div class="paw p2">
+                    <div class="paw-main"></div>
+                    <div class="paw-toe"></div>
+                    <div class="paw-toe"></div>
+                    <div class="paw-toe"></div>
                 </div>
-                <div class="initiative-card">
-                    <div class="initiative-img">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80" alt="Renewable Energy">
+                <div class="paw p3">
+                    <div class="paw-main"></div>
+                    <div class="paw-toe"></div>
+                    <div class="paw-toe"></div>
+                    <div class="paw-toe"></div>
+                </div>
+
+                <div class="pet-doodle">
+                    <div class="cat-outline">
+                        <div class="cat-head">
+                            <div class="cat-ear"></div>
+                            <div class="cat-ear right"></div>
+                            <div class="pet-face">
+                                <div class="eye"></div>
+                                <div class="eye"></div>
+                                <div class="mouth"></div>
+                            </div>
+                        </div>
+                        <div class="body"></div>
+                        <div class="tail"></div>
                     </div>
-                    <div class="initiative-content">
-                        <h3>Renewable Energy</h3>
-                        <p>Promoting solar, wind, and other clean energy sources to reduce dependence on fossil fuels.</p>
-                        <a href="#" class="btn">Learn More</a>
+                    <div class="dog-outline">
+                        <div class="dog-head">
+                            <div class="dog-ear"></div>
+                            <div class="dog-ear right"></div>
+                            <div class="pet-face">
+                                <div class="eye"></div>
+                                <div class="eye"></div>
+                                <div class="mouth"></div>
+                            </div>
+                        </div>
+                        <div class="body"></div>
+                        <div class="tail"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>Join Our Global Movement</h2>
-            <p>Together, we can create a sustainable future for generations to come. Every action counts, no matter how small.</p>
-            <a href="#" class="btn">Become a Member</a>
-        </div>
+    <!-- 内容卡片 -->
+    <section class="grid">
+        <article class="card">
+            <div class="card-title">
+                <span>为什么要认真对待每一只小动物？</span>
+            </div>
+            <p>
+                它们不会说话，却会记住你的每一次温柔和每一次忽视。
+                爱护动物，不只是喜欢，更是对生命的基本尊重。
+            </p>
+            <p>
+                一只被善待的宠物，会变成一个家庭的情绪治愈器，也会让一整座城市更有温度。
+            </p>
+        </article>
+
+        <article class="card slogan-card">
+            <div class="card-title">
+                <span>温柔一点的小标语</span>
+                <span class="tag-pill">贴在电梯、公告栏都好看</span>
+            </div>
+            <ul>
+                <li>猫猫狗狗不是玩具，是要陪很久的家人。</li>
+                <li>请对它负责到最后一程，而不是到新鲜感结束。</li>
+                <li>一把牵引、一只航空箱，是对它和他人的尊重。</li>
+                <li>你给它一个家，它回你一生的等门和摇尾巴。</li>
+                <li>这座城市，对动物温柔一点，也会对人温柔一点。</li>
+            </ul>
+        </article>
+
+        <article class="card">
+            <div class="card-title">
+                <span>今天就能做到的小事</span>
+            </div>
+            <ul>
+                <li>检查一下水盆和猫砂盆 / 狗狗厕所，给它一个干净的角落。</li>
+                <li>把疫苗、驱虫记录记在日历里，不再凭感觉「差不多」。</li>
+                <li>电梯、楼道牵好绳子，不让它吓到别人，也不让别人伤到它。</li>
+                <li>遇见流浪猫狗，在安全前提下给一碗水，而不是一脚驱赶。</li>
+            </ul>
+        </article>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Green Network</h3>
-                    <p>We are dedicated to protecting our planet through collaborative action, education, and sustainable solutions.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#initiatives">Initiatives</a></li>
-                        <li><a href="#get-involved">Get Involved</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Our Programs</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Reforestation</a></li>
-                        <li><a href="#">Ocean Cleanup</a></li>
-                        <li><a href="#">Wildlife Protection</a></li>
-                        <li><a href="#">Climate Education</a></li>
-                        <li><a href="#">Sustainable Agriculture</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Us</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Copper Creek Drive, New York</p>
-                    <p><i class="fas fa-phone"></i> +1 (312) 171-0771</p>
-                    <p><i class="fas fa-envelope"></i> support@greennetwork.org</p>
-                </div>
+    <section class="grid">
+        <article class="card">
+            <div class="card-title">
+                <span>给准备养宠的你</span>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 Green Network. All rights reserved.</p>
+            <p>
+                在按下「领养 / 购买」之前，先问自己三个问题：
+                我有没有时间陪它？有没有预算给它看病？十几年后，它变老时我还会在吗？
+            </p>
+            <p>
+                当答案都是「可以」时，再把它带回家，它会用余生来回答你今天的承诺。
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="card-title">
+                <span>给已经在身边的那只</span>
             </div>
-        </div>
-    </footer>
+            <p>
+                也许它只是你生活的一部分，但你却是它生命的全部。
+                不要用发脾气替代沟通，用学习和耐心解决所谓「问题行为」。
+            </p>
+            <p>
+                多陪它晒一次太阳、多摸摸它的头，对它来说，这就是「最佳的一天」。
+            </p>
+        </article>
 
-    <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav ul').classList.toggle('active');
-        });
+        <article class="card">
+            <div class="card-title">
+                <span>一起让社区更友好</span>
+            </div>
+            <p>
+                一句温和的解释、一包备用的垃圾袋、一声提醒「我会牵好绳子」，都在悄悄改变邻里对宠物的看法。
+            </p>
+            <p>
+                当「文明养宠」变成大家共同的默契时，猫猫狗狗就不再是矛盾的来源，而是城市的温柔背景音。
+            </p>
+        </article>
+    </section>
 
-        // Counter Animation
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            const speed = 200; // The lower the slower
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                
-                const inc = target / speed;
-                
-                if(count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(animateCounters, 1);
-                } else {
-                    counter.innerText = target;
-                }
-            });
-        }
-
-        // Initialize counters when page loads
-        window.addEventListener('load', animateCounters);
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    document.querySelector('nav ul').classList.remove('active');
-                }
-            });
-        });
-    </script>
+    <p class="footer-note">
+        本页为「爱护动物 · 宠物友好」静态示例页面，可直接放在宣传页、活动落地页或社区公告屏上使用。
+    </p>
+</div>
 </body>
-
 </html>
